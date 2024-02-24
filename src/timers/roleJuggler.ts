@@ -19,8 +19,20 @@ const roleJugglerTimer = {
 
       let roleNames: string[] = [];
 
+      let ignoredRoles = [
+        '@everyone',
+        'Disc-Hell',
+        'bullybot',
+        'Chadmins',
+        'Sugandese Doctor',
+        'w0w',
+        'Our Lord and Savoir Leg',
+        'Nig Supreme',
+        'AI Overlord',
+      ];
+
       for (const role of roles.values()) {
-        if (role.name !== '@everyone' && role.name !== 'Disc-Hell') {
+        if (!ignoredRoles.includes(role.name)) {
           roleNames.push(role.name);
         }
       }
@@ -29,7 +41,7 @@ const roleJugglerTimer = {
       shuffle(roleNames);
 
       for (const role of roles.values()) {
-        if (role.name !== '@everyone' && role.name !== 'Disc-Hell') {
+        if (!ignoredRoles.includes(role.name)) {
           const oldRoleName = role.name;
           const newRoleName = roleNames[0];
           const randomColor = getRandomColor();
