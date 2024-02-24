@@ -11,7 +11,7 @@ export class CommandHandler {
     this.commands = new Collection();
 
     // Load all event files
-    const commandFiles = readdirSync(commandsPath).filter(file => file.endsWith('.ts'));
+    const commandFiles = readdirSync(commandsPath).filter(file => file.endsWith('.ts') || file.endsWith('.js'));
 
     for (const file of commandFiles) {
       const command: Command = require(join(commandsPath, file));

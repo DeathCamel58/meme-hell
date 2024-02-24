@@ -11,7 +11,7 @@ export class TimerHandler {
     this.timers = new Collection();
 
     // Load all event files
-    const timerFiles = readdirSync(timersPath).filter(file => file.endsWith('.ts'));
+    const timerFiles = readdirSync(timersPath).filter(file => file.endsWith('.ts') || file.endsWith('.js'));
 
     for (const file of timerFiles) {
       const timer: Timer = require(join(timersPath, file));

@@ -11,7 +11,7 @@ export class EventHandler {
     this.events = new Collection();
 
     // Load all event files
-    const eventFiles = readdirSync(eventsPath).filter(file => file.endsWith('.ts'));
+    const eventFiles = readdirSync(eventsPath).filter(file => file.endsWith('.ts') || file.endsWith('.js'));
 
     for (const file of eventFiles) {
       const event: Event = require(join(eventsPath, file));
