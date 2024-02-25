@@ -10,4 +10,6 @@ export interface BotConfig {
 
   enableRoleJuggler: boolean;
   enableChannelJuggler: boolean;
+
+  soundEffects: string[];
 }

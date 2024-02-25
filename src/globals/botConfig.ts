@@ -27,5 +27,7 @@ const botConfig: BotConfig = {
 
   enableRoleJuggler: false,
   enableChannelJuggler: false,
+
+  soundEffects: getArray('../../assets/soundeffects.txt'),
 };
 export default botConfig;
