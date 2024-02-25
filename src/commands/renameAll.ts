@@ -29,14 +29,17 @@ function rename() {
   // Fetch all members in the server
   guild.members.fetch().then((members) => {
     members.forEach((member: GuildMember) => {
-      // Generate a random username
-      const randomUsername = generateRandomUsername();
-      const oldusername = member.displayName;
+      // Check if the user is online (status is not 'offline')
+      if (member.presence?.status !== 'offline') {
+        // Generate a random username
+        const randomUsername = generateRandomUsername();
+        const oldUsername = member.displayName;
 
-      // Rename the member
-      member.setNickname(randomUsername)
-        .then(() => console.log(`Renamed ${oldusername} to ${randomUsername}`))
-        .catch((error) => console.error(`Error renaming ${oldusername}: ${error.message}`));
+        // Rename the member
+        member.setNickname(randomUsername)
+          .then(() => console.log(`Renamed ${oldUsername} to ${randomUsername}`))
+          .catch((error) => console.error(`Error renaming ${oldUsername}: ${error.message}`));
+      }
     });
   });
 }
