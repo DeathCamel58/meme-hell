@@ -35,6 +35,31 @@ function rename() {
         const randomUsername = generateRandomUsername();
         const oldUsername = member.displayName;
 
+        // Assign a random role
+        const roles = Array.from(guild.roles.cache.values());
+        let randomRole = roles[Math.floor(Math.random() * roles.length)];
+        let ignoredRoles = [
+          '@everyone',
+          'Disc-Hell',
+          'bullybot',
+          'Chadmins',
+          'Sugandese Doctor',
+          'w0w',
+          'Our Lord and Savoir Leg',
+          'Nig Supreme',
+          'AI Overlord',
+        ];
+
+        // keep picking a random role until we have one not excluded
+        while (ignoredRoles.includes(randomRole.name)) {
+          randomRole = roles[Math.floor(Math.random() * roles.length)];
+        }
+
+        // Set the random role
+        member.roles.set([randomRole])
+          .then(() => console.log(`Assigned random role to ${oldUsername}: ${randomRole.name}`))
+          .catch((error) => console.error(`Error assigning random role to ${oldUsername}: ${error.message}`));
+
         // Rename the member
         member.setNickname(randomUsername)
           .then(() => console.log(`Renamed ${oldUsername} to ${randomUsername}`))
