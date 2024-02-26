@@ -1,4 +1,4 @@
-import {GuildMember, Message, PermissionsBitField} from 'discord.js';
+import {Guild, GuildMember, Message, PermissionsBitField, Role} from 'discord.js';
 import client from "../globals/discordClient";
 import botConfig from "../globals/botConfig";
 
@@ -24,49 +24,42 @@ const renameAll = {
 export = renameAll;
 
 function rename() {
-  const guild = client.guilds.cache.get(process.env.GUILD_ID!)!;
+  try {
+    const guild = client.guilds.cache.get(process.env.GUILD_ID!)!;
 
-  // Fetch all members in the server
-  guild.members.fetch().then((members) => {
-    members.forEach((member: GuildMember) => {
-      // Check if the user is online (status is not 'offline')
-      if (member.presence?.status !== 'offline') {
-        // Generate a random username
-        const randomUsername = generateRandomUsername();
-        const oldUsername = member.displayName;
+    // Fetch all members in the server
+    guild.members.fetch({withPresences: true}).then(() => {
+      guild.members.cache.forEach((member: GuildMember) => {
+        // Check if the user is online (status is not 'offline')
+        if (member.presence?.status !== 'offline' && member.manageable) {
+          // Generate a random username
+          const randomUsername = generateRandomUsername();
+          const oldUsername = member.displayName;
 
-        // Assign a random role
-        const roles = Array.from(guild.roles.cache.values());
-        let randomRole = roles[Math.floor(Math.random() * roles.length)];
-        let ignoredRoles = [
-          '@everyone',
-          'Disc-Hell',
-          'bullybot',
-          'Chadmins',
-          'Sugandese Doctor',
-          'w0w',
-          'Our Lord and Savoir Leg',
-          'Nig Supreme',
-          'AI Overlord',
-        ];
+          // Assign a random role
+          const roles = Array.from(guild.roles.cache.values());
+          let randomRole = roles[Math.floor(Math.random() * roles.length)];
 
-        // keep picking a random role until we have one not excluded
-        while (ignoredRoles.includes(randomRole.name)) {
-          randomRole = roles[Math.floor(Math.random() * roles.length)];
+          // keep picking a random role until we have one we can assign
+          while (!canAssignRole(guild, randomRole)) {
+            randomRole = roles[Math.floor(Math.random() * roles.length)];
+          }
+
+          // Set the random role
+          member.roles.set([randomRole])
+            .then(() => console.log(`Assigned random role to ${oldUsername}: ${randomRole.name}`))
+            .catch((error) => console.error(`Error assigning random role to ${oldUsername}: ${error.message}`));
+
+          // Rename the member
+          member.setNickname(randomUsername)
+            .then(() => console.log(`Renamed ${oldUsername} to ${randomUsername}`))
+            .catch((error) => console.error(`Error renaming ${oldUsername}: ${error.message}`));
         }
-
-        // Set the random role
-        member.roles.set([randomRole])
-          .then(() => console.log(`Assigned random role to ${oldUsername}: ${randomRole.name}`))
-          .catch((error) => console.error(`Error assigning random role to ${oldUsername}: ${error.message}`));
-
-        // Rename the member
-        member.setNickname(randomUsername)
-          .then(() => console.log(`Renamed ${oldUsername} to ${randomUsername}`))
-          .catch((error) => console.error(`Error renaming ${oldUsername}: ${error.message}`));
-      }
+      });
     });
-  });
+  } catch (error) {
+    console.error(`renameAll error: ${error}`);
+  }
 }
 
 // Function to generate a random username
@@ -91,3 +84,21 @@ const generateRandomUsername = (): string => {
 const capitalize = (s: string): string => {
   return s.charAt(0).toUpperCase() + s.slice(1);
 };
+
+function canAssignRole(guild: Guild, role: Role) {
+  // Get the bot's highest position role
+  const botRolePosition = guild.members.me!.roles.highest.position;
+  const rolePosition = role.position;
+
+  // Verify that the bot's role is higher than the role to assign
+  if (rolePosition >= botRolePosition) {
+    return false;
+  }
+
+  // Catch roles managed by Discord, as we can't add to these
+  if (role.managed) {
+    return false;
+  }
+
+  return true;
+}
