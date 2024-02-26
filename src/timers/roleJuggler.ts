@@ -4,7 +4,7 @@ import client from "../globals/discordClient";
 
 const roleJugglerTimer = {
   name: 'roleJuggler',
-  ms: 60000,
+  ms: 20000,
   execute(args: string[]): void {
     if (botConfig.enableRoleJuggler) {
       try {
@@ -20,12 +20,7 @@ const roleJugglerTimer = {
 
         let ignoredRoles = [
           '@everyone',
-          'Disc-Hell',
-          'bullybot',
-          'Chadmins',
           'Sugandese Doctor',
-          'w0w',
-          'Our Lord and Savoir Leg',
           'Nig Supreme',
           'AI Overlord',
         ];
@@ -55,6 +50,5 @@ const roleJugglerTimer = {
 export = roleJugglerTimer;
 
 const getRandomColor = (): ColorResolvable => {
-  const randomColor = Math.floor(Math.random() * 16777215); // 16777215 is FFFFFF in hexadecimal
-  return `#${randomColor.toString(16)}`;
+  return Math.floor(Math.random() * 0xFFFFFF);
 };
