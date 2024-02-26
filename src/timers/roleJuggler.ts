@@ -16,17 +16,13 @@ const roleJugglerTimer = {
           return;
         }
 
+        // Get the bot's highest position role
+        const botRolePosition = guild.members.me!.roles.highest.position;
+
         let roles = guild.roles.cache;
-
-        let ignoredRoles = [
-          '@everyone',
-          'Sugandese Doctor',
-          'Nig Supreme',
-          'AI Overlord',
-        ];
-
         for (const role of roles.values()) {
-          if (!ignoredRoles.includes(role.name)) {
+          // Check if this role can be edited
+          if (botRolePosition > role.position) {
             const oldRoleName = role.name;
             const newRoleName = botConfig.roleNames[Math.floor(Math.random() * botConfig.roleNames.length)];
             const randomColor = getRandomColor();
