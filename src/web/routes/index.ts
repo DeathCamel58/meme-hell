@@ -39,5 +39,11 @@ router.post('/setChannelJuggle', (req: Request, res: Response) => {
   res.redirect('/control-panel');
 });
 
+router.post('/setSoundEffects', (req: Request, res: Response) => {
+  botConfig.enableSoundEffects = req.body.setSoundEffects === 'on';
+
+  res.redirect('/control-panel');
+});
+
 
 export default router;

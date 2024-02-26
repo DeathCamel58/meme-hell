@@ -71,6 +71,20 @@
     <hr />
 
     <div class="row">
+        <h2>Sound Effects</h2>
+
+        <form action="/setSoundEffects" method="POST">
+            <div class="form-check mb-3">
+                <input type="checkbox" class="form-check-input" id="setSoundEffects" name="setSoundEffects" <% if (botConfig.enableSoundEffects) { %>checked<% } %>>
+                <label class="form-check-label" for="setSoundEffects">Enable Sound Effects</label>
+            </div>
+            <button type="submit" class="btn btn-primary">Save</button>
+        </form>
+    </div>
+
+    <hr />
+
+    <div class="row">
         <h2>Channel Juggling</h2>
 
         <form action="/setChannelJuggle" method="POST">
