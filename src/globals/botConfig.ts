@@ -12,7 +12,12 @@ config();
  */
 function getArray(filePath: string) {
   const fileContent = fs.readFileSync(path.join(__dirname, filePath), 'utf-8');
-  return fileContent.split('\n');
+  let data = fileContent.split('\n');
+
+  // Remove the last item to remove the empty line at the end of the file
+  data.pop();
+
+  return data;
 }
 
 const botConfig: BotConfig = {
