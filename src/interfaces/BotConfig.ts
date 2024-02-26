@@ -9,6 +9,7 @@ export interface BotConfig {
   nouns: string[];
 
   enableRoleJuggler: boolean;
+  roleNames: string[];
   enableChannelJuggler: boolean;
 
   soundEffects: string[];

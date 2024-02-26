@@ -7,71 +7,52 @@ const roleJugglerTimer = {
   ms: 60000,
   execute(args: string[]): void {
     if (botConfig.enableRoleJuggler) {
-      const guild = client.guilds.cache.get(process.env.GUILD_ID!)!;
+      try {
+        const guild = client.guilds.cache.get(process.env.GUILD_ID!)!;
 
-      // Check if the guild is available
-      if (!guild) {
-        console.error(`Guild not found.`);
-        return;
-      }
-
-      let roles = guild.roles.cache;
-
-      let roleNames: string[] = [];
-
-      let ignoredRoles = [
-        '@everyone',
-        'Disc-Hell',
-        'bullybot',
-        'Chadmins',
-        'Sugandese Doctor',
-        'w0w',
-        'Our Lord and Savoir Leg',
-        'Nig Supreme',
-        'AI Overlord',
-      ];
-
-      for (const role of roles.values()) {
-        if (!ignoredRoles.includes(role.name)) {
-          roleNames.push(role.name);
+        // Check if the guild is available
+        if (!guild) {
+          console.error(`Guild not found.`);
+          return;
         }
-      }
 
-      // Shuffle the order of names
-      shuffle(roleNames);
+        let roles = guild.roles.cache;
 
-      for (const role of roles.values()) {
-        if (!ignoredRoles.includes(role.name)) {
-          const oldRoleName = role.name;
-          const newRoleName = roleNames[0];
-          const randomColor = getRandomColor();
+        let ignoredRoles = [
+          '@everyone',
+          'Disc-Hell',
+          'bullybot',
+          'Chadmins',
+          'Sugandese Doctor',
+          'w0w',
+          'Our Lord and Savoir Leg',
+          'Nig Supreme',
+          'AI Overlord',
+        ];
 
-          // Change the name of the current role to roleNames index 0
-          role
-            .edit({
-              name: newRoleName,
-              color: randomColor,
-            })
-            .then(() => console.log(`Renamed role ${oldRoleName} to ${newRoleName}`))
-            .catch((error) => console.error(`Error juggling role name ${oldRoleName} to ${newRoleName}`));
+        for (const role of roles.values()) {
+          if (!ignoredRoles.includes(role.name)) {
+            const oldRoleName = role.name;
+            const newRoleName = botConfig.roleNames[Math.floor(Math.random() * botConfig.roleNames.length)];
+            const randomColor = getRandomColor();
 
-          // Remove first from array
-          roleNames.shift();
+            role
+              .edit({
+                name: newRoleName,
+                color: randomColor,
+              })
+              .then(() => console.log(`Renamed role ${oldRoleName} to ${newRoleName}`))
+              .catch((error) => console.error(`Error juggling role name ${oldRoleName} to ${newRoleName}`));
+          }
         }
+      } catch (error) {
+        console.error(`roleJuggler error: ${error}`);
       }
     }
   },
 };
 
 export = roleJugglerTimer;
-
-const shuffle = (array: string[]) => {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
-  return array;
-};
 
 const getRandomColor = (): ColorResolvable => {
   const randomColor = Math.floor(Math.random() * 16777215); // 16777215 is FFFFFF in hexadecimal

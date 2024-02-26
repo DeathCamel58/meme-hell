@@ -26,6 +26,7 @@ const botConfig: BotConfig = {
   nouns: getArray('../../assets/nouns.txt'),
 
   enableRoleJuggler: false,
+  roleNames: getArray('../../assets/roles.txt'),
   enableChannelJuggler: false,
 
   soundEffects: getArray('../../assets/soundeffects.txt'),
