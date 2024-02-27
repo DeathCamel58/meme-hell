@@ -1,4 +1,4 @@
-import { Client, Collection } from 'discord.js';
+import { Collection } from 'discord.js';
 import { join } from 'path';
 import { readdirSync } from 'fs';
 import { Event } from './interfaces/Event';

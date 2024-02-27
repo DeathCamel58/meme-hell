@@ -1,8 +1,7 @@
-import { Client, GatewayIntentBits } from 'discord.js';
+import { GatewayIntentBits } from 'discord.js';
 import { join } from 'path';
 import { CommandHandler } from './CommandHandler';
 import { EventHandler } from './EventHandler';
-import { BotConfig } from './interfaces/BotConfig';
 import { startWebServer } from './web';
 import botConfig from "./globals/botConfig";
 import client from "./globals/discordClient";

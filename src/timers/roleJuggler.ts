@@ -37,7 +37,7 @@ const roleJugglerTimer = {
                 icon: randomIconBuffer,
               })
               .then(() => console.log(`Renamed role ${oldRoleName} to ${newRoleName}`))
-              .catch((error) => console.error(`Error juggling role name ${oldRoleName} to ${newRoleName}`));
+              .catch((error) => console.error(`Error juggling role name ${oldRoleName} to ${newRoleName}. ${error}`));
           }
         }
       } catch (error) {
@@ -55,6 +55,5 @@ const getRandomColor = (): ColorResolvable => {
 
 async function getRandomIcon(): Promise<BufferResolvable> {
   const iconPath = botConfig.roleJuggler.roleIcons[Math.floor(Math.random() * botConfig.roleJuggler.roleIcons.length)];
-  const iconBuffer = await fs.promises.readFile(path.join(__dirname, '../../assets/role-icons', iconPath));
-  return iconBuffer;
+  return await fs.promises.readFile(path.join(__dirname, '../../assets/role-icons', iconPath));
 }

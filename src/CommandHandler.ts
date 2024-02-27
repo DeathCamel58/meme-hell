@@ -1,4 +1,4 @@
-import { Client, Collection, Message } from 'discord.js';
+import { Collection, Message } from 'discord.js';
 import { readdirSync } from 'fs';
 import { join } from 'path';
 import { Command } from "./interfaces/Command";
