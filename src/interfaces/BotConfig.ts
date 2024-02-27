@@ -3,15 +3,29 @@ export interface BotConfig {
   botToken: string;
   webPort: number;
 
-  // Below are options in the web UI
-  enableRenameAll: boolean;
-  adjectives: string[];
-  nouns: string[];
+  // Below are options for scripts
+  renameAll: {
+    enable: boolean;
+    ms: number;
+    adjectives: string[];
+    nouns: string[];
+  }
 
-  enableRoleJuggler: boolean;
-  roleNames: string[];
-  enableChannelJuggler: boolean;
-  enableSoundEffects: boolean;
+  roleJuggler: {
+    enable: boolean;
+    ms: number;
+    roleNames: string[];
+    roleIcons: string[];
+  }
 
-  soundEffects: string[];
+  channelJuggler: {
+    enable: boolean;
+    ms: number;
+  }
+
+  soundEffects: {
+    enable: boolean;
+    ms: number;
+    list: string[];
+  }
 }

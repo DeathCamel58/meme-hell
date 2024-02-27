@@ -1,9 +1,10 @@
 import {BotConfig} from "../interfaces/BotConfig";
 
 // Load environment variables from .env file
-import { config } from 'dotenv';
+import {config} from 'dotenv';
 import * as fs from "fs";
 import path from "path";
+
 config();
 
 /**
@@ -20,21 +21,39 @@ function getArray(filePath: string) {
   return data;
 }
 
+function getFiles(filePath: string) {
+  return fs.readdirSync(path.join(__dirname, filePath));
+}
+
 const botConfig: BotConfig = {
   prefix: process.env.PREFIX || '!',
   botToken: process.env.BOT_TOKEN || '',
   webPort: parseInt(process.env.WEB_PORT || '3000', 10),
 
   // Configurable options
-  enableRenameAll: false,
-  adjectives: getArray('../../assets/adjectives.txt'),
-  nouns: getArray('../../assets/nouns.txt'),
+  renameAll: {
+    enable: false,
+    ms: 60000,
+    adjectives: getArray('../../assets/adjectives.txt'),
+    nouns: getArray('../../assets/nouns.txt'),
+  },
 
-  enableRoleJuggler: false,
-  roleNames: getArray('../../assets/roles.txt'),
-  enableChannelJuggler: false,
-  enableSoundEffects: false,
+  roleJuggler: {
+    enable: false,
+    ms: 30000,
+    roleNames: getArray('../../assets/roles.txt'),
+    roleIcons: getFiles('../../assets/role-icons/'),
+  },
 
-  soundEffects: getArray('../../assets/soundeffects.txt'),
+  channelJuggler: {
+    enable: false,
+    ms: 60000,
+  },
+
+  soundEffects: {
+    enable: false,
+    ms: 450000,
+    list:getArray('../../assets/soundeffects.txt'),
+  },
 };
 export default botConfig;

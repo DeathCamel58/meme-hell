@@ -13,9 +13,9 @@ import botConfig from "../globals/botConfig";
 
 const soundEffectTimer = {
   name: 'soundEffectTimer',
-  ms: 450000,
+  ms: botConfig.soundEffects.ms,
   execute(args: string[]): void {
-    if (botConfig.enableSoundEffects) {
+    if (botConfig.soundEffects.enable) {
       const guild = client.guilds.cache.get(process.env.GUILD_ID!)!;
 
       // Check if the guild is available
@@ -39,7 +39,7 @@ const soundEffectTimer = {
         connection.on(VoiceConnectionStatus.Ready, () => {
           try {
             // Play a random sound effect
-            const youtubeLinks = botConfig.soundEffects;
+            const youtubeLinks = botConfig.soundEffects.list;
             const link = youtubeLinks[Math.floor(Math.random() * youtubeLinks.length)];
             const stream = ytdl(link, {filter: 'audioonly'});
             const resource = createAudioResource(stream);

@@ -20,9 +20,9 @@
                 <div class="table-responsive">
                     <table class="table table-bordered">
                         <tbody>
-                        <% for (let i = 0; i < botConfig.adjectives.length; i++) { %>
+                        <% for (let i = 0; i < botConfig.renameAll.adjectives.length; i++) { %>
                             <tr>
-                                <td><%= botConfig.adjectives[i] %></td>
+                                <td><%= botConfig.renameAll.adjectives[i] %></td>
                             </tr>
                         <% } %>
                         </tbody>
@@ -34,9 +34,9 @@
                 <div class="table-responsive">
                     <table class="table table-bordered">
                         <tbody>
-                        <% for (let i = 0; i < botConfig.nouns.length; i++) { %>
+                        <% for (let i = 0; i < botConfig.renameAll.nouns.length; i++) { %>
                             <tr>
-                                <td><%= botConfig.nouns[i] %></td>
+                                <td><%= botConfig.renameAll.nouns[i] %></td>
                             </tr>
                         <% } %>
                         </tbody>
@@ -47,7 +47,7 @@
 
         <form action="/setRenameAll" method="POST">
             <div class="form-check mb-3">
-                <input type="checkbox" class="form-check-input" id="setRenameAll" name="setRenameAll" <% if (botConfig.enableRenameAll) { %>checked<% } %>>
+                <input type="checkbox" class="form-check-input" id="setRenameAll" name="setRenameAll" <% if (botConfig.renameAll.enable) { %>checked<% } %>>
                 <label class="form-check-label" for="setRenameAll">Enable Auto RenameAll</label>
             </div>
             <button type="submit" class="btn btn-primary">Save</button>
@@ -61,7 +61,7 @@
 
         <form action="/setRoleJuggle" method="POST">
             <div class="form-check mb-3">
-                <input type="checkbox" class="form-check-input" id="setRoleJuggle" name="setRoleJuggle" <% if (botConfig.enableRoleJuggler) { %>checked<% } %>>
+                <input type="checkbox" class="form-check-input" id="setRoleJuggle" name="setRoleJuggle" <% if (botConfig.roleJuggler.enable) { %>checked<% } %>>
                 <label class="form-check-label" for="setRoleJuggle">Enable Role Juggling</label>
             </div>
             <button type="submit" class="btn btn-primary">Save</button>
@@ -75,7 +75,7 @@
 
         <form action="/setSoundEffects" method="POST">
             <div class="form-check mb-3">
-                <input type="checkbox" class="form-check-input" id="setSoundEffects" name="setSoundEffects" <% if (botConfig.enableSoundEffects) { %>checked<% } %>>
+                <input type="checkbox" class="form-check-input" id="setSoundEffects" name="setSoundEffects" <% if (botConfig.soundEffects.enable) { %>checked<% } %>>
                 <label class="form-check-label" for="setSoundEffects">Enable Sound Effects</label>
             </div>
             <button type="submit" class="btn btn-primary">Save</button>
@@ -89,7 +89,7 @@
 
         <form action="/setChannelJuggle" method="POST">
             <div class="form-check mb-3">
-                <input type="checkbox" class="form-check-input" id="setChannelJuggle" name="setChannelJuggle" <% if (botConfig.enableChannelJuggler) { %>checked<% } %>>
+                <input type="checkbox" class="form-check-input" id="setChannelJuggle" name="setChannelJuggle" <% if (botConfig.channelJuggler.enable) { %>checked<% } %>>
                 <label class="form-check-label" for="setChannelJuggle">Enable Channel Juggling</label>
             </div>
             <button type="submit" class="btn btn-primary">Save</button>

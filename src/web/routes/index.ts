@@ -22,25 +22,25 @@ router.get('/auth/callback', (req: Request, res: Response) => {
 });
 
 router.post('/setRenameAll', (req: Request, res: Response) => {
-  botConfig.enableRenameAll = req.body.setRenameAll === 'on';
+  botConfig.renameAll.enable = req.body.setRenameAll === 'on';
 
   res.redirect('/control-panel');
 });
 
 router.post('/setRoleJuggle', (req: Request, res: Response) => {
-  botConfig.enableRoleJuggler = req.body.setRoleJuggle === 'on';
+  botConfig.roleJuggler.enable = req.body.setRoleJuggle === 'on';
 
   res.redirect('/control-panel');
 });
 
 router.post('/setChannelJuggle', (req: Request, res: Response) => {
-  botConfig.enableChannelJuggler = req.body.setChannelJuggle === 'on';
+  botConfig.channelJuggler.enable = req.body.setChannelJuggle === 'on';
 
   res.redirect('/control-panel');
 });
 
 router.post('/setSoundEffects', (req: Request, res: Response) => {
-  botConfig.enableSoundEffects = req.body.setSoundEffects === 'on';
+  botConfig.soundEffects.enable = req.body.setSoundEffects === 'on';
 
   res.redirect('/control-panel');
 });
